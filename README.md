@@ -3,6 +3,7 @@
 ![RTSAP Logo](/api/placeholder/800/400)
 
 [![Python Version](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
+[![Conda](https://img.shields.io/badge/conda-supported-green.svg)](https://docs.conda.io/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Kubernetes](https://img.shields.io/badge/kubernetes-1.30.0-blue.svg)](https://kubernetes.io/)
 [![Minikube](https://img.shields.io/badge/minikube-1.33.0-blue.svg)](https://minikube.sigs.k8s.io/)
@@ -64,32 +65,6 @@ RTSAP is a comprehensive real-time streaming analytics platform designed for fin
   - Data replication
   - Automated recovery
 
-## 🏆 Features in Detail
-
-### Stream Processing Engine
-
-- **Kafka Integration**
-  - Multi-topic support
-  - Partitioned message handling
-  - Exactly-once processing semantics
-
-- **Flink Processing**
-  - Stateful stream processing
-  - Complex event detection
-  - Window-based analytics
-
-### Storage Layer
-
-- **TimescaleDB**
-  - Optimized time-series storage
-  - Automated data retention
-  - Continuous aggregation
-
-- **MongoDB**
-  - Flexible document storage
-  - Rich querying capabilities
-  - Schema-free design
-
 ## 🚦 System Requirements
 
 ### Minimum Requirements
@@ -105,30 +80,65 @@ RTSAP is a comprehensive real-time streaming analytics platform designed for fin
 - 16GB+ RAM
 - 8+ CPU cores
 - 100GB+ SSD storage
+- NVIDIA GPU (optional)
 - Kubernetes cluster
 
 ## 🛠️ Installation
 
-### Using Script (Recommended)
+### Installing Conda
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/rtsap.git
-cd rtsap
+# Download Miniconda installer
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 
-# Check environment
-./check-rtsap-environment.sh
+# Make installer executable
+chmod +x Miniconda3-latest-Linux-x86_64.sh
 
-# Setup development environment
-./setup-dev-env.sh
+# Run installer
+./Miniconda3-latest-Linux-x86_64.sh
+
+# Initialize conda for your shell
+conda init bash  # or conda init zsh if you use zsh
 ```
 
-### Manual Installation
+### Setting Up Conda Environment
 
 ```bash
-# Install prerequisites
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y build-essential curl wget git
+# Create conda environment for RTSAP
+conda create -n rtsap python=3.9
+conda activate rtsap
+
+# Install core dependencies
+conda install -c conda-forge \
+    numpy \
+    pandas \
+    scikit-learn \
+    matplotlib \
+    seaborn \
+    jupyterlab \
+    ipykernel \
+    fastapi \
+    uvicorn \
+    python-dotenv \
+    sqlalchemy \
+    psycopg2 \
+    pymongo \
+    confluent-kafka \
+    requests \
+    pytest
+
+# Install ML libraries (if needed)
+conda install -c pytorch pytorch torchvision torchaudio cudatoolkit=11.8
+
+# Install additional packages not available in conda
+pip install kafka-python timescale
+```
+
+### Installing System Dependencies
+
+```bash
+# Update package list
+sudo apt update
 
 # Install Docker
 sudo apt install -y docker-ce docker-ce-cli containerd.io
@@ -141,53 +151,25 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 # Install kubectl
 curl -LO "https://dl.k8s.io/release/v1.30.0/bin/linux/amd64/kubectl"
 sudo install kubectl /usr/local/bin/
+
+# Install Helm
+curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 ```
 
-### Environment Setup Verification
+### Environment Verification
 
 ```bash
-# Verify installations
-docker --version
-minikube version
-kubectl version --client
-helm version
+# Verify conda environment
+conda list
 
-# Start Minikube
-minikube start --cpus 8 --memory 40960
+# Verify Python installation
+python -c "import sys; print(sys.version)"
 
-# Enable addons
-minikube addons enable metrics-server
-minikube addons enable dashboard
-```
+# Verify key packages
+python -c "import numpy; import pandas; import fastapi; print('All key packages installed')"
 
-## 💻 Usage
-
-### Basic Usage
-
-```bash
-# Start the platform
-minikube start --cpus 8 --memory 40960
-
-# Deploy core services
-helm install my-kafka bitnami/kafka
-helm install my-timescaledb timescale/timescaledb-single
-
-# Start API server
-cd src/api
-uvicorn main:app --reload
-```
-
-### Development Mode
-
-```bash
-# Activate virtual environment
-source venv/bin/activate
-
-# Start data ingestion
-python src/ingestion/kafka_producer.py
-
-# Run stream processor
-python src/processing/stream_processor.py
+# Verify CUDA (if using GPU)
+python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
 ```
 
 ## 📈 Project Structure
@@ -195,23 +177,64 @@ python src/processing/stream_processor.py
 ```plaintext
 rtsap/
 ├── config/              # Configuration files
+│   ├── .env            # Environment variables
+│   └── config.yaml     # Application configuration
 ├── src/                # Source code
 │   ├── api/            # FastAPI application
 │   ├── ingestion/      # Data ingestion scripts
 │   └── processing/     # Stream processing logic
 ├── notebooks/          # Jupyter notebooks
-├── scripts/           # Utility scripts
+├── scripts/            # Utility scripts
 ├── data/              # Data files
 ├── models/            # ML models
-└── tests/             # Test files
+├── tests/             # Test files
+└── environment.yml    # Conda environment file
+```
+
+## 💻 Usage
+
+### Starting the Platform
+
+```bash
+# Start Minikube
+minikube start --cpus 8 --memory 40960
+
+# Enable addons
+minikube addons enable metrics-server
+minikube addons enable dashboard
+
+# Deploy core services
+helm install my-kafka bitnami/kafka
+helm install my-timescaledb timescale/timescaledb-single
+```
+
+### Development Workflow
+
+```bash
+# Activate environment
+conda activate rtsap
+
+# Start the API server
+cd src/api
+uvicorn main:app --reload
+
+# Run tests
+pytest tests/
+
+# Start Jupyter Lab
+jupyter lab
 ```
 
 ## 🔧 Advanced Configuration
 
 ### Environment Variables
 
+Create a `.env` file in your project root:
+
 ```bash
-# .env file
+# .env
+PYTHONPATH=${PYTHONPATH}:${PWD}
+CONDA_ENV_PATH=$(conda info --base)/envs/rtsap
 POSTGRES_HOST=my-postgres-postgresql.default.svc.cluster.local
 TIMESCALEDB_HOST=my-timescaledb.default.svc.cluster.local
 KAFKA_BOOTSTRAP_SERVERS=my-kafka.default.svc.cluster.local:9092
@@ -268,6 +291,38 @@ Contributions are welcome! Please see our [Contributing Guidelines](CONTRIBUTING
 4. Push to the branch
 5. Open a Pull Request
 
+## 🔍 Troubleshooting
+
+### Common Issues
+
+1. **Conda environment issues**
+```bash
+# Reset conda environment
+conda deactivate
+conda env remove -n rtsap
+conda env create -f environment.yml
+```
+
+2. **Kubernetes connectivity**
+```bash
+# Check cluster status
+minikube status
+kubectl cluster-info
+```
+
+3. **Service issues**
+```bash
+# Check running pods
+kubectl get pods
+kubectl describe pod <pod-name>
+```
+
+## 📚 Documentation
+
+- [API Documentation](docs/api.md)
+- [Data Schema](docs/schema.md)
+- [Deployment Guide](docs/deployment.md)
+
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -278,11 +333,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - TimescaleDB for time-series storage
 - Kubernetes for orchestration
 - FastAPI for API development
+- Conda community for package management
 
 ## 📈 Project Status
 
 RTSAP is under active development. Check our [Project Board](https://github.com/yourusername/rtsap/projects) for planned features and current progress.
 
+## 👥 Support
+
+- GitHub Issues: [Project Issues](https://github.com/yourusername/rtsap/issues)
+- Documentation: [Wiki](https://github.com/yourusername/rtsap/wiki)
+- Community: [Discussions](https://github.com/yourusername/rtsap/discussions)
+
 ---
 
-Made with ❤️ by Karales.com
+Made with ❤️ by [Karales.com](https://karales.com)
