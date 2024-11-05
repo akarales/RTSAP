@@ -1,0 +1,28 @@
+name: rtsap
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyterlab
+  - ipykernel
+  - fastapi
+  - uvicorn
+  - python-dotenv
+  - sqlalchemy
+  - psycopg2
+  - pymongo
+  - requests
+  - pytest
+  - pip:
+    - kafka-python
+    - timescale
+    - confluent-kafka
+    - apache-flink
+    - yfinance

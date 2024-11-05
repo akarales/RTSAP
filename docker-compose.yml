@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  kafka:
+    image: bitnami/kafka:latest
+    ports:
+      - '9092:9092'
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      
+  timescaledb:
+    image: timescale/timescaledb:latest-pg14
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=password
+      
+  api:
+    build: 
+      context: .
+      dockerfile: src/api/Dockerfile
+    ports:
+      - '8000:8000'
+    depends_on:
+      - kafka
+      - timescaledb
+      
+  dashboard:
+    build:
+      context: .
+      dockerfile: src/dashboard/Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
