@@ -132,13 +132,13 @@ RTSAP addresses these challenges through:
 - Email: [karales@gmail.com](mailto:karales@gmail.com)
 - Github: [@akarales](https://github.com/akarales)
 
-### Support and Documentation
+<!-- ### Support and Documentation
 
 - **Technical Support**: <support@rtsap.com>
 - **Documentation**: [docs.rtsap.com](https://docs.rtsap.com)
 - **GitHub Repository**: [github.com/akarales/rtsap](https://github.com/akarales/rtsap)
 - **Project Updates**: Follow [@alex_karales](https://x.com/alex_karales) for the latest updates
-- **Blog**: [karales.com/blog/rtsap](https://karales.com/blog/rtsap)
+- **Blog**: [karales.com/blog/rtsap](https://karales.com/blog/rtsap) -->
 
 ### Community Resources
 
