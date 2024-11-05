@@ -285,4 +285,4 @@ RTSAP is under active development. Check our [Project Board](https://github.com/
 
 ---
 
-Made with ❤️ by Karales.com
+Made with ❤️ by Your Team Name
