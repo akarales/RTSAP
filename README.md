@@ -7,7 +7,9 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Kubernetes](https://img.shields.io/badge/kubernetes-1.30.0-blue.svg)](https://kubernetes.io/)
 [![Minikube](https://img.shields.io/badge/minikube-1.33.0-blue.svg)](https://minikube.sigs.k8s.io/)
-[![Version](https://img.shields.io/badge/version-0.1--alpha-orange.svg)](https://github.com/yourusername/rtsap/releases)
+[![Version](https://img.shields.io/badge/version-0.1--alpha-orange.svg)](https://github.com/akarales/rtsap/releases)
+[![Website](https://img.shields.io/badge/website-karales.com-blue.svg)](https://karales.com)
+[![Twitter](https://img.shields.io/badge/X-alex__karales-black.svg)](https://x.com/alex_karales)
 
 ## 🎯 Overview
 
@@ -296,6 +298,7 @@ Contributions are welcome! Please see our [Contributing Guidelines](CONTRIBUTING
 ### Common Issues
 
 1. **Conda environment issues**
+
 ```bash
 # Reset conda environment
 conda deactivate
@@ -304,6 +307,7 @@ conda env create -f environment.yml
 ```
 
 2. **Kubernetes connectivity**
+
 ```bash
 # Check cluster status
 minikube status
@@ -311,6 +315,7 @@ kubectl cluster-info
 ```
 
 3. **Service issues**
+
 ```bash
 # Check running pods
 kubectl get pods
@@ -327,6 +332,22 @@ kubectl describe pod <pod-name>
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 👤 Author
+
+### **Alex Karales**
+
+- Website: [karales.com](https://karales.com)
+- X (Twitter): [@alex_karales](https://x.com/alex_karales)
+- Email: [karales@gmail.com](mailto:karales@gmail.com)
+- Github: [@akarales](https://github.com/akarales)
+
+## 🌍 Community
+
+- Follow development on [GitHub](https://github.com/akarales/rtsap)
+- Read our [Blog](https://karales.com/blog/rtsap)
+- Join discussions on [GitHub Discussions](https://github.com/akarales/rtsap/discussions)
+- Follow [@alex_karales](https://x.com/alex_karales) for updates
+
 ## 🙏 Acknowledgments
 
 - Apache Kafka for streaming capabilities
@@ -337,14 +358,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📈 Project Status
 
-RTSAP is under active development. Check our [Project Board](https://github.com/yourusername/rtsap/projects) for planned features and current progress.
+RTSAP is under active development. Check our [Project Board](https://github.com/akarales/rtsap/projects) for planned features and current progress.
 
 ## 👥 Support
 
-- GitHub Issues: [Project Issues](https://github.com/yourusername/rtsap/issues)
-- Documentation: [Wiki](https://github.com/yourusername/rtsap/wiki)
-- Community: [Discussions](https://github.com/yourusername/rtsap/discussions)
+- GitHub Issues: [Project Issues](https://github.com/akarales/rtsap/issues)
+- Documentation: [Wiki](https://github.com/akarales/rtsap/wiki)
+- Community: [Discussions](https://github.com/akarales/rtsap/discussions)
 
 ---
 
-Made with ❤️ by [Karales.com](https://karales.com)
+![Karales.com](/api/placeholder/200/50)
+
+Made with ❤️ by [Alex Karales](https://karales.com)
